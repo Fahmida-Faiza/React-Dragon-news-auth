@@ -3,14 +3,20 @@ import { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
 // import { FaAppStore } from "react-icons/fa";
 import app from '../firebase/firebase.config'
-export const AuthContext = createContext(null)
+export const AuthContext = createContext(null);
+
 
 const auth = getAuth(app);
 const AuthProvider = ({children}) => {
 
 const [user, setUser] = useState(null);
 
+
+// loading
+const[loading, setloading] =useState(true)
+
 const createUser = (email, password) =>{
+    setloading(true);
     return createUserWithEmailAndPassword(auth,email, password) 
 
     
@@ -18,11 +24,14 @@ const createUser = (email, password) =>{
 
 //sign in
 const signIn = (email, password) =>{
-    return signInWithEmailAndPassword(auth, email, password)
+    setloading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+    
 }
 // logout
 
 const logOut = () =>{
+    setloading(true);
     return signOut(auth)
 }
 
@@ -32,6 +41,8 @@ useEffect( () => {
         console.log('user in the auth state changed', currentUser);
         setUser(currentUser);
 
+        setloading(false)
+
     });
     return () =>{
         unSubscribe();
@@ -39,8 +50,11 @@ useEffect( () => {
 }, [])
 
 
-const authInfo ={user,
+const authInfo ={
+    user,
+    loading,
     createUser,
+    
     signIn,
     logOut
 
