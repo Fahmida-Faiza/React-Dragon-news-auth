@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 // import { getAuth } from "firebase/auth";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
 // import { FaAppStore } from "react-icons/fa";
 import app from '../firebase/firebase.config'
 export const AuthContext = createContext(null)
@@ -16,8 +16,37 @@ const createUser = (email, password) =>{
     
 }
 
+//sign in
+const signIn = (email, password) =>{
+    return signInWithEmailAndPassword(auth, email, password)
+}
+// logout
 
-const authInfo ={user,createUser}
+const logOut = () =>{
+    return signOut(auth)
+}
+
+// user information set hpy aikhaney
+useEffect( () => {
+  const unSubscribe =  onAuthStateChanged(auth,  currentUser => {
+        console.log('user in the auth state changed', currentUser);
+        setUser(currentUser);
+
+    });
+    return () =>{
+        unSubscribe();
+    }
+}, [])
+
+
+const authInfo ={user,
+    createUser,
+    signIn,
+    logOut
+
+
+
+}
 
 
 
