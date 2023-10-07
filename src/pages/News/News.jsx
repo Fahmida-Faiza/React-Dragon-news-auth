@@ -1,6 +1,6 @@
 import {  useLoaderData, useParams } from "react-router-dom";
 import Header from "../Shared/Header/Header"
-import RightSideNav from "../Shared/RightSideNav/RightSideNav"
+
 import Navbar from "../Shared/Navbar/Navbar"
 const News= () => {
     const { id } = useParams();
@@ -31,9 +31,7 @@ console.log(job)
 
                    
                 </div>
-                {/* <div>
-                    <RightSideNav></RightSideNav>
-                </div> */}
+               
             </div>
 
 

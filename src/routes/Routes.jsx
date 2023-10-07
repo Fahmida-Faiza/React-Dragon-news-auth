@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import News from "../pages/News/News";
 import PrivateRoute from "./PrivateRoute";
+import Galary from "../pages/Galary/Galary";
 
 const router =createBrowserRouter([
 
@@ -36,7 +37,19 @@ const router =createBrowserRouter([
 
             },
 
+// ////////////////////////////////////////////////
 
+{
+
+    path:'/gallery',
+    element: <PrivateRoute><Galary></Galary></PrivateRoute>
+},
+
+
+
+
+
+// //////////////////////////////////////////////
             {
 
                 path:'/login',
