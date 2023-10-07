@@ -20,13 +20,19 @@ const router =createBrowserRouter([
 
                 // load koro data
 
-                loader:() => fetch('/news.json')
+                // loader:() => fetch('/news.json')
+
+
+                loader: () => fetch('/career-fairs.json')
             },
 
             {
                 path: '/news/:id',
-                element:<PrivateRoute><News></News></PrivateRoute>
+                element:<PrivateRoute><News></News></PrivateRoute>,
                 // element:<News></News>
+
+
+                loader: () => fetch('career-fairs.json')
 
             },
 
