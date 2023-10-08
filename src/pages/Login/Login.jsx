@@ -9,6 +9,7 @@ import {  FaGoogle } from 'react-icons/fa';
 
 
 const Login = () => {
+    const [loginError, setloginError] = useState('')
 ///google
     const [user, setUser] = useState(null);
 const auth = getAuth(app);
@@ -22,10 +23,21 @@ const handleGoogleSignIn = () => {
         const loggedInUser = result.user;
         console.log(loggedInUser);
         setUser(loggedInUser);
+
+        //navigate after login
+        navigate(location?.state ? location.state : '/')
     })
+
+    
     .catch(error =>{
-        console.log('error' , error.message)
+        // console.log('error' , error.message)
+        setloginError(error.message)
     })
+
+
+
+
+    
 }
 
 //google signout
@@ -61,13 +73,35 @@ const handleGoogleSignIn = () => {
         const password= form.get('password')
 
         console.log(email, password);
+        //reset error
+        // setloginError('');
+
+        //
+        //validation korbo
+        if (password.length < 6) {
+            setloginError('please should 6 charaecter');
+            return;
+        }
+        else if(!/[A-Z]/.test(password)){
+            setloginError('Your password should have one upper at least chareacters')
+            return;
+
+        }
+
+        ////
 
         signIn(email, password)
         .then(result => {
             console.log(result.user);
 
+
+
+
 //navigate after login
 navigate(location?.state ? location.state : '/')
+
+
+
 
         })
         .catch(error =>{
@@ -133,6 +167,13 @@ navigate(location?.state ? location.state : '/')
 
                 }
             </div>
+
+
+
+            {
+
+               loginError && <p className="text-red-500">{loginError}</p>
+            }
         </div>
     );
 };

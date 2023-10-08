@@ -32,10 +32,12 @@ const news = useLoaderData();
             </div>
 
             <div className="mt-10">
+                <h2 className=" text-sm md:text-4xl text-center font-bold">Services </h2>
+
                
                 {/* news container */}
-                <div className="md:col-span-2 grid lg:grid-cols-3 gap-5"> 
-                    {/* <h2 className="text-4xl">News coming soon</h2> */}
+                <div className="md:col-span-2 grid lg:grid-cols-3 gap-5 mt-10"> 
+                   
 
                     {
 
