@@ -5,9 +5,18 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 import {  useState } from "react";
 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+    //react tostify
+
+    const handleApplyJob = () => {
+
+        toast('You have Register sucessfully')
+    }
+
+    //
     const [loginError, setloginError] = useState('')
 const {createUser} = useContext(AuthContext);
 
@@ -21,11 +30,13 @@ const {createUser} = useContext(AuthContext);
         const photo = form.get('photo');
         const email = form.get('email');
         const password = form.get('password');
+        console.log(form.get);
         console.log(name, photo, email, password);
 //create user
+        setloginError('');
 
         if (password.length < 6) {
-            setloginError('please should 6 charaecter');
+            setloginError('please should 6 charaecter in password');
             return;
         }
         else if (!/[A-Z]/.test(password)) {
@@ -85,7 +96,7 @@ createUser(email, password)
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn btn-primary">Register</button>
+                        <button onClick={handleApplyJob} className="btn btn-primary">Register</button>
                     </div>
                 </form>
 
@@ -95,6 +106,9 @@ createUser(email, password)
 
                 loginError && <p className="text-red-500">{loginError}</p>
             }
+
+
+            <ToastContainer />
         </div>
     );
 };

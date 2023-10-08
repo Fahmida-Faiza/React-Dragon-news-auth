@@ -6,9 +6,20 @@ import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/
 import app from '../../firebase/firebase.config'
 import {  FaGoogle } from 'react-icons/fa';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Login = () => {
+    //react tostify
+
+    const handleApplyJob = () => {
+        
+        toast('You have Login sucessfully')
+    }
+
+    //
     const [loginError, setloginError] = useState('')
 ///google
     const [user, setUser] = useState(null);
@@ -73,10 +84,10 @@ const handleGoogleSignIn = () => {
         const password= form.get('password')
 
         console.log(email, password);
-        //reset error
-        // setloginError('');
+        // reset error
+        setloginError('');
 
-        //
+        
         //validation korbo
         if (password.length < 6) {
             setloginError('please should 6 charaecter');
@@ -140,7 +151,7 @@ navigate(location?.state ? location.state : '/')
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn btn-primary">Login</button>
+                        <button onClick={handleApplyJob} className="btn btn-primary">Login</button>
                     </div>
                 </form>
 
@@ -174,6 +185,9 @@ navigate(location?.state ? location.state : '/')
 
                loginError && <p className="text-red-500">{loginError}</p>
             }
+
+
+            <ToastContainer />
         </div>
     );
 };
