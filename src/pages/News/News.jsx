@@ -1,5 +1,5 @@
 import {  useLoaderData, useParams } from "react-router-dom";
-import Header from "../Shared/Header/Header"
+
 
 import Navbar from "../Shared/Navbar/Navbar"
 const News= () => {
