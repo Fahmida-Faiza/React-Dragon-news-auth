@@ -3,8 +3,12 @@ import Navbar from "../Shared/Navbar/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 
+import {  useState } from "react";
+
+
 
 const Register = () => {
+    const [loginError, setloginError] = useState('')
 const {createUser} = useContext(AuthContext);
 
     const handleRegister = e => {
@@ -20,11 +24,23 @@ const {createUser} = useContext(AuthContext);
         console.log(name, photo, email, password);
 //create user
 
+        if (password.length < 6) {
+            setloginError('please should 6 charaecter');
+            return;
+        }
+        else if (!/[A-Z]/.test(password)) {
+            setloginError('Your password should have one upper at least chareacters')
+            return;
+
+        }
+        // create user
+
 createUser(email, password)
 .then(result => {
     console.log(result.user)
 })
 .catch(error =>{
+    setloginError(error.message)
     console.error(error)
 })
 
@@ -75,6 +91,10 @@ createUser(email, password)
 
                 <p className="text-center mt-4">Already  have an account <Link to="/login" className="text-blue-600 font-bold">Login</Link></p>
             </div>
+            {
+
+                loginError && <p className="text-red-500">{loginError}</p>
+            }
         </div>
     );
 };
